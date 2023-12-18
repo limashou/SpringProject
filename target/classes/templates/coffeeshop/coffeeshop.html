@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffeeshops</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/coffeeshopStyle.css}">
+    <script th:src="@{/js/coffeeshopScript.js}"></script>
+</head>
+<body>
+<h1>Coffeeshops List</h1>
+<button class="button-container" onclick="window.location.href='logout'">logout</button>
+<h2 th:text="'User' + ${information}" > </h2>
+<div class="container">
+    <div class="search-container">
+        <form action='coffeeshop' method='post'>
+            <select id='searchType' name='searchType' style='display: none;'>
+                <option value='name'>Name</option>
+            </select>
+            <input type='text' id='searchQuery' name='searchQuery'>
+            <input type='submit' value='Search'>
+        </form>
+    </div>
+    <div class="button-container">
+        <button onclick="window.location.href='AddCoffeeshop'">Add</button>
+        <input type='button' value='Reset Table'>
+        <form action="/send" method="post">
+            <input type="email" name="email" placeholder="Enter your email address">
+            <button type="submit">Generate Report</button>
+        </form>
+        <button onclick="window.location.href='registeredUser'">Registered user</button>
+    </div>
+    <div class="table-row">
+        <div class="filter-table-container">
+            <form action='coffeeshop' method='post' id='filterForm'>
+                <div class="checkbox-group">
+                    <b class="highlighted-text">Filters:</b>
+                    <span>Rate:</span>
+                    <label for='rateFilter1'><input type='checkbox' id='rateFilter1' name='rateFilter' value='1'>1</label>
+                    <label for='rateFilter2'><input type='checkbox' id='rateFilter2' name='rateFilter' value='2'>2</label>
+                    <label for='rateFilter3'><input type='checkbox' id='rateFilter3' name='rateFilter' value='3'>3</label>
+                    <label for='rateFilter4'><input type='checkbox' id='rateFilter4' name='rateFilter' value='4'>4</label>
+                    <label for='rateFilter5'><input type='checkbox' id='rateFilter5' name='rateFilter' value='5'>5</label>
+                    <span>Working Hours:</span>
+                    <label for='workingHoursFilter1'><input type='checkbox' id='workingHoursFilter1' name='workingHoursFilter' value='08:00-22:00'>08:00-22:00</label>
+                    <label for='workingHoursFilter2'><input type='checkbox' id='workingHoursFilter2' name='workingHoursFilter' value='10:00-24:00'>10:00-24:00</label>
+                    <label for='workingHoursFilter3'><input type='checkbox' id='workingHoursFilter3' name='workingHoursFilter' value='10:00-24:00'>00:00-23:59</label>
+                    <input type='button' value='Apply Filters'>
+                    <input type='reset' id="reset" value='Clear Filters'>
+                </div>
+            </form>
+        </div>
+        <div class="table-container">
+            <table id="originalTable" border="1">
+                <thead>
+                <tr>
+                    <th><input type='submit' value='Name' style='border: none; background-color: transparent; cursor: pointer;' class="form-button"></th>
+                    <th>Address</th>
+                    <th><form action="coffeeshop" method="GET" class="rate-button-form">
+                        <input type="hidden" name="sort"  value="by_rate">
+                        <button class="form-button">Rate</button>
+                    </form></th>
+                    <th>Working Hours</th>
+                    <th>Email</th>
+                    <th colspan="4">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block  th:each="shop : ${coffeeshops}">
+                    <tr id="out">
+                        <td th:text="${shop.name}"></td>
+                        <td th:text="${shop.address}"></td>
+                        <td th:text="${shop.rate}"></td>
+                        <td th:switch="${shop.working_hours}">
+                            <p th:case="'1'">08:00-22:00</p>
+                            <p th:case="'2'">10:00-24:00</p>
+                            <p th:case="'3'">00:00-23:59</p>
+                        </td>
+                        <td th:text="${shop.email}"></td>
+                        <td>
+                            <form action="DeleteCoffeeshop" method="post" class="rate-button-form">
+                                <input type="hidden" name="coffeeshopId" th:value="${shop.id}">
+                                <input type="submit" value="Delete" class="form-button">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="EditCoffeeshop" method="get" class="rate-button-form">
+                                <input type="hidden" name="coffeeshopId" th:value="${shop.id}">
+                                <input type="submit" value="Edit" class="form-button">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="Order" method="get" class="rate-button-form">
+                                <input type="hidden" name="coffeeshopId" th:value="${shop.id}">
+                                <input type="hidden" name="authorities" th:value="${authorities}">
+                                <input type="submit" value="Orders" class="form-button">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="Menu" method="get" class="rate-button-form">
+                                <input type="hidden" name="coffeeshopId" th:value="${shop.id}">
+                                <input type="submit" value="Menu" class="form-button">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

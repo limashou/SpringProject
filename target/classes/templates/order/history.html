@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffeeshop All Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/orderStyle.css}">
+    <script th:src="@{/js/orderScript.js}"></script>
+</head>
+<body>
+<h1>Coffeeshop Orders</h1>
+<div th:if="${selectedCoffeeshop != null}">
+    <h2 th:text="'Selected Coffeeshop: ' + ${selectedCoffeeshop.name}"></h2>
+    <div class="container">
+        <div class="button-container">
+            <input type="button" value="Reset Table">
+            <button th:onclick="|window.location.href='coffeeshop'|">Coffeeshop Table</button>
+        </div>
+        <div class="table-row">
+            <div class="table-container">
+                <table id="originalTableHTML" border="1">
+                    <thead>
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Possible ready time</th>
+                        <th>Items</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Payment Method</th>
+                        <th>Payment Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td th:text="${order.order_date}"></td>
+                        <td th:text="${order.possible_ready_time}"></td>
+                        <td >
+                            <span th:each="item : ${order.items}" th:text="${item.items}" class="item"></span>
+                        </td>
+                        <td id="total_amount" th:text="${order.total_amount}"></td>
+                        <td th:text="${order.status}"></td>
+                        <td th:text="${order.payment_method ? 'Card' : 'Cash'}"></td>
+                        <td th:text="${order.payment_status}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

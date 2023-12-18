@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Coffeeshop</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/editAddStyle.css}">
+</head>
+<body>
+<h1>Edit Coffeeshop</h1>
+<form th:action="@{/EditCoffeeshop}" method="post">
+    <input type="hidden" name="coffeeshopId" th:value="${selectedCoffeeshop.id}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="${selectedCoffeeshop.name}" th:required="required"><br>
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" th:value="${selectedCoffeeshop.address}" th:required="required"><br>
+    <label for="rate">Rate:</label>
+    <select id="rate" name="rate" th:required="required">
+        <option value="1" th:selected="${selectedCoffeeshop.rate == 1}">1</option>
+        <option value="2" th:selected="${selectedCoffeeshop.rate == 2}">2</option>
+        <option value="3" th:selected="${selectedCoffeeshop.rate == 3}">3</option>
+        <option value="4" th:selected="${selectedCoffeeshop.rate == 4}">4</option>
+        <option value="5" th:selected="${selectedCoffeeshop.rate == 5}">5</option>
+    </select><br>
+    <label for="working_hours">Working Hours:</label>
+    <select id="working_hours" name="working_hours" th:required="required">
+        <option value="1" th:selected="${selectedCoffeeshop.working_hours == 1}">08:00-22:00</option>
+        <option value="2" th:selected="${selectedCoffeeshop.working_hours == 2}">10:00-24:00</option>
+        <option value="3" th:selected="${selectedCoffeeshop.working_hours == 3}">00:00-23:59</option>
+    </select><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${selectedCoffeeshop.email}" th:required="required"><br>
+    <input type="submit" value="Save">
+    <button onclick="window.location.href='coffeeshop'">Back</button>
+</form>
+</body>
+</html>

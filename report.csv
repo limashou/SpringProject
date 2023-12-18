@@ -1,0 +1,2 @@
+Coffeeshop{id=1, name='zibybe', address='find', opening_date=4, working_hours=1, email='ad@df'}
+Coffeeshop{id=14, name='test', address='Address', opening_date=3, working_hours=3, email='some@email.com'}

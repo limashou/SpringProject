@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}">-->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins',sans-serif;
+        }
+
+        section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            background: rgba(94,94,94,0.67);
+            background-position: center;
+            background-size: cover;
+        }
+
+        .form-box{
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 550px;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h2{
+            font-size: 2em;
+            color: #fff;
+            text-align: center;
+        }
+
+        .inputbox{
+            position: relative;
+            margin: 30px 0;
+            width: 310px;
+            border-bottom: 2px solid #fff;
+        }
+
+        .inputbox label{
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 1em;
+            pointer-events: none;
+            transition: .5s;
+        }
+        input:focus ~ label,
+        input:valid ~ label{
+            top: -5px;
+        }
+        .inputbox input{
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            padding: 0 35px 0 5px;
+            color: #fff;
+        }
+        button{
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            background: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+        }
+        .button_back button {
+            margin-top: 15px;
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            background: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+        const currentUrl = window.location.href;
+        if (currentUrl === 'http://localhost:8080/registration?exist') {
+            alert('User exist. Change username');
+        }
+    </script>
+</head>
+<body>
+<section>
+    <div class="form-box">
+        <div class="form-value">
+            <form th:action="@{/registration}" method="post">
+                <h2>Registration</h2>
+                <div class="inputbox">
+                    <input type="text" name="username" class="form-control"  th:required="required"/>
+                    <label>Login</label>
+                </div>
+                <div class="inputbox">
+                    <input type="password" name="password" id="password" class="form-control"  th:required="required"/>
+                    <label> Password:</label>
+                </div>
+                <div class="inputbox">
+                    <input type="password" name="check" id="check" class="form-control"  th:required="required"/>
+                    <label> Confirm password:</label>
+                </div>
+                <div class="inputbox">
+                    <input type="email" name="email" id="email" class="form-control"  th:required="required"/>
+                    <label> Email:</label>
+                </div>
+                <div class="button_submit_log">
+                    <button type="submit" class="button_submit_log button">
+                        Registration
+                    </button>
+                </div>
+                <div class="button_back">
+                    <button onclick="window.location.href='login'">Login page</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    let passwordElement = document.getElementById("password");
+    let checkElement = document.getElementById("check");
+    let submitButton = document.querySelector(".button_submit_log button");
+
+    submitButton.disabled = true;
+
+    if (passwordElement.value !== checkElement.value || passwordElement.value === "" || checkElement.value === "") {
+        submitButton.disabled = true;
+    } else {
+        submitButton.disabled = false;
+    }
+
+    passwordElement.addEventListener("change", () => {
+        updateSubmitButtonState();
+    });
+
+    checkElement.addEventListener("change", () => {
+        updateSubmitButtonState();
+    });
+
+    function updateSubmitButtonState() {
+        if (passwordElement.value !== checkElement.value || passwordElement.value === "" || checkElement.value === "") {
+            submitButton.disabled = true;
+        } else {
+            submitButton.disabled = false;
+        }
+    }
+</script>
+</body>
+</html>

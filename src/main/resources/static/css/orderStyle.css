@@ -1,0 +1,151 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+body{
+    background: rgba(94,94,94,0.67);
+}
+/*table{*/
+/*    background: #fff;*/
+/*}*/
+.search-container {
+    text-align: left;
+    margin-right: 70%;
+    margin-bottom: 10px;
+}
+
+.button-container {
+    margin-right: 68%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.table-row {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.filter-table-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-group label {
+    display: block;
+}
+
+.search-container label,
+.search-container input {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.search-container select {
+    font-size: 16px;
+}
+
+.button-container button,
+.button-container input[type="button"],
+.form-button {
+    font-size: 12px;
+    padding: 3px 8px;
+}
+
+.form-button {
+    border: none;
+    color: black;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    text-decoration: underline;
+}
+
+button,
+input[type="button"], #reset {
+    background-color: #fff;
+    color: black;
+    border: none;
+    padding: 3px 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+#reset{margin-top: 5px}
+/*#originalTableHTML {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*}*/
+
+/*#originalTable th,*/
+/*#originalTable td {*/
+/*    border: 1px solid #ddd;*/
+/*    padding: 8px;*/
+/*    text-align: left;*/
+/*}*/
+/*.table-container {*/
+/*    width: 80%;*/
+/*}*/
+/*!*#originalTable th {*!*/
+/*!*    background-color: #fff;*!*/
+/*!*}*!*/
+
+/*.highlighted-text {*/
+/*    font-size: 20px;*/
+/*}*/
+table{
+    width: 100%;
+    font-family: sans-serif;
+    font-weight: 100;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px #0000001a;
+}
+th,
+td{
+    background-color: #ffffff33;
+    padding: 15px;
+    color:black ;
+}
+th{
+    text-align: left;
+}
+thead th {
+    background-color: #fff;
+}
+
+tbody tr:hover{
+    background-color: #ffffff4d;
+}
+
+tbody td{
+    position: relative;
+}
+
+tbody td:hover:before{
+    content: "";
+    position: absolute;
+    background-color: #ffffff33;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    z-index: -1;
+}
+
+.rate-button-form {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.item {
+    display: block;
+}

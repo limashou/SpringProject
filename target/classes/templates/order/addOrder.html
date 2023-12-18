@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Order</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/editAddStyle.css}">
+    <script th:src="@{/js/numberLocale.js}"></script>
+</head>
+<body>
+<h1>Add Order</h1>
+<div th:if="${selectedCoffeeshop != null}">
+    <h2 th:text="'Selected Coffeeshop: ' + ${selectedCoffeeshop.name}"></h2>
+    <form th:action="@{/AddOrder}" method="post">
+        <input type="hidden" th:name="coffeeshopId" th:value="${selectedCoffeeshop.id}">
+        <input type="hidden" name="authorities" th:value="${authorities.getId()}">
+        <label>Items:</label>
+        <div class="check-container">
+            <div  th:each="menu : ${menuList}">
+                <label>
+                    <input type="checkbox" th:name="selectedItems" th:value="${menu.id}" class="menu-checkbox">
+                    <span th:text="${menu.items}"></span> - <span class="menu-cost" th:text=" ${menu.cost} "></span>
+                    <input  type="number" th:name="quantity" value="1" class="menu-quantity" style="display: none;">
+                </label>
+            </div>
+        </div>
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+            <option value="ready">Ready</option>
+            <option value="not_ready">Not Ready</option>
+        </select><br>
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod" name="paymentMethod" required>
+            <option value="true">Card</option>
+            <option value="false">Cash</option>
+        </select><br>
+        <label for="paymentStatus">Payment Status:</label>
+        <select id="paymentStatus" name="paymentStatus" required>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+        </select><br>
+        <input type="submit" value="Add Order">
+<!--        <a th:href="@{'/Order?coffeeshopId=' + ${selectedCoffeeshop.id}} +'&authorities='+ ${authorities}">Back</a>-->
+    </form>
+<!--    <button th:onclick="|window.location.href='Order?coffeeshopId=' + ${selectedCoffeeshop.id} +'&authorities='+ ${authorities}|">Back</button>-->
+</div>
+</body>
+</html>

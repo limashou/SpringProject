@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Coffeeshop Orders</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/orderStyle.css}">
+        <script th:src="@{/js/orderScript.js}"></script>
+    </head>
+    <body>
+    <h1>Coffeeshop Orders</h1>
+    <div th:if="${selectedCoffeeshop != null}">
+            <h2 th:text="'Selected Coffeeshop: ' + ${selectedCoffeeshop.name}" ></h2>
+            <div class="container">
+                <div class="button-container">
+                    <button th:onclick="|window.location.href='AddOrder?coffeeshopId=' + ${selectedCoffeeshop.id} +'&authorities='+ ${authorities}|">Add Customer</button>
+                    <input type="button" value="Reset Table">
+                    <button th:onclick="|window.location.href='coffeeshop'|">Coffeeshop Table</button>
+                </div>
+                <div class="table-row">
+                    <div class="table-container">
+                        <table id="originalTableHTML" border="1">
+                            <thead>
+                            <tr>
+                                <th>Order Date</th>
+                                <th>Possible ready time</th>
+                                <th>Items</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
+                                <th>Payment Method</th>
+                                <th>Payment Status</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${orders}">
+                                <td th:text="${order.order_date}"></td>
+                                <td th:text="${order.possible_ready_time}"></td>
+                                <td >
+                                    <span th:each="item : ${order.items}" th:text="${item.items}" class="item"></span>
+                                </td>
+                                <td id="total_amount" th:text="${order.total_amount}"></td>
+                                <td th:text="${order.status}"></td>
+                                <td th:text="${order.payment_method ? 'Card' : 'Cash'}"></td>
+                                <td th:text="${order.payment_status}"></td>
+                                <td>
+                                    <div th:if="${order.status} == 'Not ready'">
+                                    <form th:action="@{'/DeleteOrder'}" method="post" class="rate-button-form">
+                                        <input type="hidden" name="coffeeshopId" th:value="${selectedCoffeeshop.id}">
+                                        <input type="hidden" name="orderId" th:value="${order.id}">
+                                        <input type="hidden" name="authorities" th:value="${authorities}">
+                                        <input type="hidden" name="paymentStatus" th:value="${order.payment_status}">
+                                        <input type="submit" value="Cancel" class="form-button">
+                                    </form>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div th:if="${order.status} == 'Not ready'">
+                                        <div th:if="${order.status} == 'Paid'">
+                                            <form th:action="@{'/EditOrder'}" method="get" class="rate-button-form">
+                                                <input type="hidden" name="coffeeshopId" th:value="${selectedCoffeeshop.id}">
+                                                <input type="hidden" name="authorities" th:value="${authorities}">
+                                                <input type="hidden" name="orderId" th:value="${order.id}">
+                                                <input type="submit" value="Edit" class="form-button">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
